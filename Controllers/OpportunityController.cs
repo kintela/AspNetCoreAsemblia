@@ -18,9 +18,6 @@ namespace web.Controllers
         {
             var context = new FysegContext();
             return Ok(context.Opportunities.ToList());
-            //return Ok(new Opportunity() {
-            //    Title="Oportunidad1"
-            //});
         }
         [HttpGet]
         [Route("{id}")]
@@ -35,13 +32,6 @@ namespace web.Controllers
                 return NoContent();
             }
             return Ok(opportunity);
-
-
-            //return Ok(new Opportunity()
-            //{
-            //    Id=id,
-            //    Title = "Oportunidad1"
-            //});
         }
 
     }

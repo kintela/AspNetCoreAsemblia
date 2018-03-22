@@ -11,7 +11,7 @@ using web.DataBase;
 namespace web.DataBase
 {
     [DbContext(typeof(FysegContext))]
-    [Migration("20180322123916_InitialMigration")]
+    [Migration("20180322181019_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -46,7 +46,7 @@ namespace web.DataBase
 
                     b.Property<DateTime>("CallDate");
 
-                    b.Property<int>("Country");
+                    b.Property<string>("Country");
 
                     b.Property<int>("LeadEmployeeId");
 

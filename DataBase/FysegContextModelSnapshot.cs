@@ -45,7 +45,7 @@ namespace web.DataBase
 
                     b.Property<DateTime>("CallDate");
 
-                    b.Property<int>("Country");
+                    b.Property<string>("Country");
 
                     b.Property<int>("LeadEmployeeId");
 

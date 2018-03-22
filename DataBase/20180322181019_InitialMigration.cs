@@ -32,7 +32,7 @@ namespace web.DataBase
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Amount = table.Column<decimal>(nullable: false),
                     CallDate = table.Column<DateTime>(nullable: false),
-                    Country = table.Column<int>(nullable: false),
+                    Country = table.Column<string>(nullable: true),
                     LeadEmployeeId = table.Column<int>(nullable: false),
                     Title = table.Column<string>(nullable: true)
                 },

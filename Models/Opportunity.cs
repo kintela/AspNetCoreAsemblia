@@ -9,7 +9,7 @@ namespace web.Models
     {
         public int Id { get; set; }
         public string Title { get; set; }
-        public int Country { get; set; }
+        public string Country { get; set; }
         public DateTime CallDate { get; set; }
         public decimal Amount { get; set; }
 
