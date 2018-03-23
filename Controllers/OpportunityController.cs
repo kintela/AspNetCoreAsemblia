@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using web.Models;
 using web.DataBase;
+using web.Services;
 
 namespace web.Controllers
 {
@@ -68,6 +69,19 @@ namespace web.Controllers
             opportunity.State = "Accepted";
 
             context.SaveChanges();
+
+            var mailServive = new MailService();
+
+            var leadMail = context.Employees.SingleOrDefault(e => e.Id == opportunity.LeadEmployeeId).Email;
+
+            mailServive.SendMail(leadMail);
+
+            var tender = new Tender()
+            {
+                Title=opportunity.Title                
+            };
+
+            RedirectToActionResult redirectResult = new RedirectToActionResult("Add", "TenderController", tender);
 
             return Ok(opportunity);
         }
