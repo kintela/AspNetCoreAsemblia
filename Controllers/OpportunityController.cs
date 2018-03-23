@@ -34,5 +34,22 @@ namespace web.Controllers
             return Ok(opportunity);
         }
 
+        [HttpPost]
+        [Route("")]
+        public IActionResult Add([FromBody] Opportunity opportunity)
+        {
+            var context = new FysegContext();
+
+            if (opportunity == null)
+            {
+                return NoContent();
+            }
+
+            context.Add(opportunity);
+
+            context.SaveChanges();
+
+            return Ok(opportunity);
+        }
     }
 }
