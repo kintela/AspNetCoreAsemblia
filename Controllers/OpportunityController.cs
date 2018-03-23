@@ -4,35 +4,51 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using web.Models;
-using web.DataBase;
 using web.Services;
 using Microsoft.EntityFrameworkCore;
+using web.Core.Domain.OpportunityManagement;
+using web.Core.Domain.Infrastructure;
+using web.Core.Infrastructure.Mailing;
+using Core.Domain.Mail;
 
 namespace web.Controllers
 {
     [Route("opportunity")]
     public class OpportunityController : Controller
     {
+        private readonly FysegContext context;
+        private readonly SmtpMailService mailService;
+
+        public OpportunityController(FysegContext context, IMailService mailService)
+        {
+            //    context = new FysegContext();
+            //    mailService = new SmtpMailService();
+
+            this.context = context;
+            this.mailService = mailService;
+        }
+
         [HttpGet]
         [Route("")]
         public IActionResult Get()
         {
-            var context = new FysegContext();
-            return Ok(context.Opportunities.ToList());
+            var opportunities = new Opportunities(context.Opportunities);
+
+            return Ok(opportunities.GetAll());
         }
         [HttpGet]
         [Route("{id}")]
         public IActionResult Get(int id)
         {
-            var context = new FysegContext();
+            var opportunities = new Opportunities(context.Opportunities);
 
-            var opportunity = context.Opportunities.SingleOrDefault(o => o.Id == id);
+            var opportunity=opportunities.GetById(id);
 
             if (opportunity==null)
             {
                 return NoContent();
             }
+
             return Ok(opportunity);
         }
 
@@ -40,18 +56,16 @@ namespace web.Controllers
         [Route("")]
         public IActionResult Add([FromBody] Opportunity opportunity)
         {
-            var context = new FysegContext();
+            var opportunities = new Opportunities(context.Opportunities);
 
-            if (opportunity == null)
-            {
-                return NoContent();
-            }
+            opportunities.Create(opportunity);
 
-            context.Add(opportunity);
+            bool created = context.SaveChanges() > 0;
 
-            context.SaveChanges();
+            if (!created)
+                return BadRequest();
 
-            return Ok(opportunity);
+            return Ok(opportunity.Id);
         }
 
         [HttpPost]
@@ -60,7 +74,9 @@ namespace web.Controllers
         {
             var context = new FysegContext();
 
-            var opportunity = context.Opportunities.Include(o=>o.LeadEmployee).SingleOrDefault(o => o.Id == id);
+            var opportunity = context.Opportunities
+                .Include(o=>o.LeadEmployee)
+                .SingleOrDefault(o => o.Id == id);
 
             if (opportunity == null)
             {
@@ -77,12 +93,12 @@ namespace web.Controllers
 
             mailServive.SendMail(opportunity.LeadEmployee.Email);
 
-            var tender = new Tender()
-            {
-                Title=opportunity.Title                
-            };
+            //var tender = new Tender()
+            //{
+            //    Title=opportunity.Title                
+            //};
 
-            context.Tenders.Add(tender);
+            //context.Tenders.Add(tender);
 
             //provoca error de referencia circular al devover opportunity que a su vez busca empleados y que a su vez busca oportunidades, etc...
             //nunca devlver en una API el modelo de la bbdd o de dominio sino un view model
@@ -91,24 +107,21 @@ namespace web.Controllers
 
 
         [HttpPost]
-        [Route("{id}/accept2")]
-        public IActionResult Accept2(int id)
+        [Route("{id}/approbe")]
+        public IActionResult Approbe(int id)
         {
-            var context = new FysegContext();
+            var opportunities = new Opportunities(context.Opportunities);
 
-            var opportunity = new Opportunity()
-            {
-                Id=id,
-                State="accepted"
-            };
+            var opportunity = opportunities.GetById(id);
 
-            var entry = context.Attach(opportunity);
+            opportunity.Aprobe(mailService);
 
-            entry.Property(o => o.State).IsModified=true;
+            bool approbed = context.SaveChanges() > 0;
 
-            context.SaveChanges();
+            if (!approbed)
+                return BadRequest();
 
-            return Ok(opportunity);
+            return Ok();
         }
     }
 }

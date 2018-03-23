@@ -5,10 +5,13 @@ using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Core.Domain.Mail;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
+using web.Core.Domain.Infrastructure;
+using web.Core.Infrastructure.Mailing;
 
 namespace web
 {
@@ -19,6 +22,9 @@ namespace web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+
+            services.AddDbContext<FysegContext>();
+            services.AddScoped<IMailService, SmtpMailService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
