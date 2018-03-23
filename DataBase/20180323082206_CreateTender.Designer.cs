@@ -8,12 +8,13 @@ using Microsoft.EntityFrameworkCore.Storage.Internal;
 using System;
 using web.DataBase;
 
-namespace web.DataBase
+namespace web.database
 {
     [DbContext(typeof(FysegContext))]
-    partial class FysegContextModelSnapshot : ModelSnapshot
+    [Migration("20180323082206_CreateTender")]
+    partial class CreateTender
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

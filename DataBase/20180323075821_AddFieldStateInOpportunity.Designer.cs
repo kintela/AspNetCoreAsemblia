@@ -8,12 +8,13 @@ using Microsoft.EntityFrameworkCore.Storage.Internal;
 using System;
 using web.DataBase;
 
-namespace web.DataBase
+namespace web.database
 {
     [DbContext(typeof(FysegContext))]
-    partial class FysegContextModelSnapshot : ModelSnapshot
+    [Migration("20180323075821_AddFieldStateInOpportunity")]
+    partial class AddFieldStateInOpportunity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -58,22 +59,6 @@ namespace web.DataBase
                     b.HasIndex("LeadEmployeeId");
 
                     b.ToTable("Opportunities");
-                });
-
-            modelBuilder.Entity("web.Models.Tender", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<decimal>("Amount");
-
-                    b.Property<string>("State");
-
-                    b.Property<string>("Title");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Tenders");
                 });
 
             modelBuilder.Entity("web.Models.Opportunity", b =>

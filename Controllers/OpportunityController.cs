@@ -51,5 +51,25 @@ namespace web.Controllers
 
             return Ok(opportunity);
         }
+
+        [HttpPut]
+        [Route("{id}")]
+        public IActionResult Accept(int id)
+        {
+            var context = new FysegContext();
+
+            var opportunity = context.Opportunities.SingleOrDefault(o => o.Id == id);
+
+            if (opportunity == null)
+            {
+                return NoContent();
+            }
+
+            opportunity.State = "Accepted";
+
+            context.SaveChanges();
+
+            return Ok(opportunity);
+        }
     }
 }
