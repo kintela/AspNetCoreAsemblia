@@ -1,9 +1,10 @@
 ﻿using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using web.Core.Domain.OpportunityManagement;
+using Core.Domain.OpportunityManagement;
 using Core.Domain.Infrastructure;
-using Core.Domain.Mail;
+using Core.Domain.Mailing;
+using Core.Infrastructure.Mailing;
 
 namespace web.Controllers
 {
@@ -11,12 +12,10 @@ namespace web.Controllers
     public class OpportunityController : Controller
     {
         private readonly FysegContext context;
-        private readonly IMailService mailService;
+        private readonly SmtpMailService mailService;
 
-        public OpportunityController(FysegContext context, IMailService mailService)
+        public OpportunityController(FysegContext context, SmtpMailService mailService)
         {
-            //    context = new FysegContext();
-            //    mailService = new SmtpMailService();
 
             this.context = context;
             this.mailService = mailService;
