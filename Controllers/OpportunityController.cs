@@ -7,8 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using web.Services;
 using Microsoft.EntityFrameworkCore;
 using web.Core.Domain.OpportunityManagement;
-using web.Core.Domain.Infrastructure;
-using web.Core.Infrastructure.Mailing;
+using Core.Domain.Infrastructure;
+using Core.Infrastructure.Mailing;
 using Core.Domain.Mail;
 
 namespace web.Controllers

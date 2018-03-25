@@ -10,8 +10,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
-using web.Core.Domain.Infrastructure;
-using web.Core.Infrastructure.Mailing;
+using Core.Domain.Infrastructure;
+using Core.Infrastructure.Mailing;
 
 namespace web
 {
