@@ -17,7 +17,7 @@ namespace web.Controllers
     public class OpportunityController : Controller
     {
         private readonly FysegContext context;
-        private readonly SmtpMailService mailService;
+        private readonly IMailService mailService;
 
         public OpportunityController(FysegContext context, IMailService mailService)
         {
