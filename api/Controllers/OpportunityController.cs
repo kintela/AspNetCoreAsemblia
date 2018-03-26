@@ -6,75 +6,78 @@ using CursoAspNet.Core.Domain.Infrastructure;
 using CursoAspNet.Core.Domain.Mailing;
 using CursoAspNet.Core.Infrastructure.Mailing;
 using CursoAspNet.Core.Actions.OpportunityManagement;
+using MediatR;
+using System.Threading.Tasks;
 
 namespace CursoAspNet.Api.Controllers
 {
     [Route("opportunity")]
     public class OpportunityController : Controller
     {
-        private readonly FysegContext context;
-        private readonly Approbe approbe;
-
-        public OpportunityController(FysegContext context, Approbe approbe)
+        private readonly IMediator mediator;
+        public OpportunityController(IMediator mediator)
         {
-
-            this.context = context;
-            this.approbe = approbe;
+            this.mediator = mediator;
         }
 
         [HttpPost]
         [Route("{id}/approbe")]
-        public IActionResult Approbe(int id)
+        public async Task<IActionResult> Approbe(int id)
         {
-            bool aprrobed = approbe.Run(id);
+            var approbeRequest = new Approbe(id);
 
-            if (!aprrobed)
+            var approbeResult=await mediator.Send(approbeRequest);
+
+            if (!approbeResult)
                 return BadRequest();
+
             return Ok();
         }
 
         [HttpGet]
         [Route("")]
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
-            var opportunities = new Opportunities(context.Opportunities);
+            var getAllResponse=await mediator.Send(new ListAll());
 
-            return Ok(opportunities.GetAll());
-        }
-        [HttpGet]
-        [Route("{id}")]
-        public IActionResult Get(int id)
-        {
-            var opportunities = new Opportunities(context.Opportunities);
-
-            var opportunity=opportunities.GetById(id);
-
-            if (opportunity==null)
-            {
-                return NoContent();
-            }
-
-            return Ok(opportunity);
+            return Ok(getAllResponse);
         }
 
-        [HttpPost]
-        [Route("")]
-        public IActionResult Add([FromBody] Opportunity opportunity)
-        {
-            var opportunities = new Opportunities(context.Opportunities);
+        //[HttpGet]
+        //[Route("{id}")]
+        //public IActionResult Get(int id)
+        //{
 
-            opportunities.Create(opportunity);
+        //    var opportunity = viewById.Run(id);
 
-            bool created = context.SaveChanges() > 0;
+        //    if (opportunity==null)
+        //    {
+        //        return NoContent();
+        //    }
 
-            if (!created)
-                return BadRequest();
+        //    return Ok(opportunity);
+        //}
 
-            return Ok(opportunity.Id);
-        }
 
-       
 
-       
+        //[HttpPost]
+        //[Route("")]
+        //public IActionResult Add([FromBody] Opportunity opportunity)
+        //{
+        //    var opportunities = new Opportunities(context.Opportunities);
+
+        //    opportunities.Create(opportunity);
+
+        //    bool created = context.SaveChanges() > 0;
+
+        //    if (!created)
+        //        return BadRequest();
+
+        //    return Ok(opportunity.Id);
+        //}
+
+
+
+
     }
 }

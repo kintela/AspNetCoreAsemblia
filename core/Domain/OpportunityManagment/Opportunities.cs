@@ -15,9 +15,9 @@ namespace CursoAspNet.Core.Domain.OpportunityManagement
         {
             this.opportunities = opportunities;
         }
-        public IEnumerable<Opportunity> GetAll()
+        public async Task<IEnumerable<Opportunity>> GetAll()
         {
-            return opportunities.ToList();
+            return await opportunities.ToListAsync();
         }
 
         public Opportunity GetById(int id)
