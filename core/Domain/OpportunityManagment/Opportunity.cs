@@ -37,6 +37,5 @@ namespace CursoAspNet.Core.Domain.OpportunityManagement
 
             return true;
         }
-
     }
 }

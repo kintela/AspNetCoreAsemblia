@@ -37,6 +37,9 @@ namespace CursoAspNet.Core.Domain.OpportunityManagement
             //return changes > 0;
         }
 
-        
+        public void Update(Opportunity opportunity)
+        {
+            opportunities.Update(opportunity);
+        }
     }
 }

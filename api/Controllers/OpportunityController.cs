@@ -5,6 +5,7 @@ using CursoAspNet.Core.Domain.OpportunityManagement;
 using CursoAspNet.Core.Domain.Infrastructure;
 using CursoAspNet.Core.Domain.Mailing;
 using CursoAspNet.Core.Infrastructure.Mailing;
+using CursoAspNet.Core.Actions.OpportunityManagement;
 
 namespace CursoAspNet.Api.Controllers
 {
@@ -12,32 +13,23 @@ namespace CursoAspNet.Api.Controllers
     public class OpportunityController : Controller
     {
         private readonly FysegContext context;
-        private readonly IMailService mailService;
+        private readonly Approbe approbe;
 
-        public OpportunityController(FysegContext context, IMailService mailService)
+        public OpportunityController(FysegContext context, Approbe approbe)
         {
 
             this.context = context;
-            this.mailService = mailService;
+            this.approbe = approbe;
         }
 
         [HttpPost]
         [Route("{id}/approbe")]
         public IActionResult Approbe(int id)
         {
-            var opportunities = new Opportunities(context.Opportunities);
+            bool aprrobed = approbe.Run(id);
 
-            var opportunity = opportunities.GetById(id);
-
-            opportunity.Aprobe(mailService);
-
-            context.Update(opportunity);
-
-            bool approbed = context.SaveChanges() > 0;
-
-            if (!approbed)
+            if (!aprrobed)
                 return BadRequest();
-
             return Ok();
         }
 
@@ -83,24 +75,6 @@ namespace CursoAspNet.Api.Controllers
 
        
 
-        [HttpPost]
-        [Route("{id}/approbe")]
-        public IActionResult Approbe(int id)
-        {
-            var opportunities = new Opportunities(context.Opportunities);
-
-            var opportunity = opportunities.GetById(id);
-
-            opportunity.Aprobe(mailService);
-
-            context.Update(opportunity);
-
-            bool approbed = context.SaveChanges() > 0;
-
-            if (!approbed)
-                return BadRequest();
-
-            return Ok();
-        }
+       
     }
 }

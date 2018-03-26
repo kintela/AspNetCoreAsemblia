@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using CursoAspNet.Core.Domain.Infrastructure;
 using CursoAspNet.Core.Infrastructure.Mailing;
+using CursoAspNet.Core.Actions.OpportunityManagement;
 
 namespace CursoAspNet.Api
 {
@@ -18,6 +19,7 @@ namespace CursoAspNet.Api
 
             services.AddDbContext<FysegContext>();
             services.AddScoped<IMailService, SmtpMailService>();
+            services.AddScoped<Approbe>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
