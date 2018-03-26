@@ -8,6 +8,7 @@ using CursoAspNet.Core.Infrastructure.Mailing;
 using CursoAspNet.Core.Actions.OpportunityManagement;
 using MediatR;
 using CursoAspNet.Core;
+using CursoAspNet.Core.Infrastructure.Actions;
 
 namespace CursoAspNet.Api
 {
@@ -19,11 +20,17 @@ namespace CursoAspNet.Api
         {
             services.AddMvc();
 
-            services.AddDbContext<FysegContext>();
-            services.AddScoped<IMailService, SmtpMailService>();
-            //services.AddScoped<Approbe>();
+            services.AddFysegCore();
 
-            services.AddMediatR(typeof(CoreModule));
+            services.AddSmtp();
+
+            //services.AddDbContext<FysegContext>();
+            //services.AddScoped<IMailService, SmtpMailService>();
+            ////services.AddScoped<Approbe>();
+
+            ////quiero loggear cualquier accion y no le paso ninguna en el parametro y esto solo lo puedo hacer con la sobrecarga typeof()
+            //services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ActionLoggingBehaviour<,>));
+            //services.AddMediatR(typeof(CoreModule));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

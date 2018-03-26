@@ -23,6 +23,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\core\core.csproj" />
+    <ProjectReference Include="..\SmtpMail\SmtpMail.csproj" />
   </ItemGroup>
 
 </Project>
