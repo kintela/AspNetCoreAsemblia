@@ -25,7 +25,7 @@ namespace web.Controllers
             //    mailService = new SmtpMailService();
 
             this.context = context;
-            this.mailService = mailService;
+            //this.mailService = mailService;
         }
 
         [HttpGet]
