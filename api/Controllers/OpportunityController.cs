@@ -12,13 +12,33 @@ namespace CursoAspNet.Api.Controllers
     public class OpportunityController : Controller
     {
         private readonly FysegContext context;
-        private readonly SmtpMailService mailService;
+        private readonly IMailService mailService;
 
-        public OpportunityController(FysegContext context, SmtpMailService mailService)
+        public OpportunityController(FysegContext context, IMailService mailService)
         {
 
             this.context = context;
             this.mailService = mailService;
+        }
+
+        [HttpPost]
+        [Route("{id}/approbe")]
+        public IActionResult Approbe(int id)
+        {
+            var opportunities = new Opportunities(context.Opportunities);
+
+            var opportunity = opportunities.GetById(id);
+
+            opportunity.Aprobe(mailService);
+
+            context.Update(opportunity);
+
+            bool approbed = context.SaveChanges() > 0;
+
+            if (!approbed)
+                return BadRequest();
+
+            return Ok();
         }
 
         [HttpGet]
@@ -72,6 +92,8 @@ namespace CursoAspNet.Api.Controllers
             var opportunity = opportunities.GetById(id);
 
             opportunity.Aprobe(mailService);
+
+            context.Update(opportunity);
 
             bool approbed = context.SaveChanges() > 0;
 
