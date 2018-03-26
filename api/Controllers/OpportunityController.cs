@@ -1,12 +1,12 @@
 ﻿using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Core.Domain.OpportunityManagement;
-using Core.Domain.Infrastructure;
-using Core.Domain.Mailing;
-using Core.Infrastructure.Mailing;
+using CursoAspNet.Core.Domain.OpportunityManagement;
+using CursoAspNet.Core.Domain.Infrastructure;
+using CursoAspNet.Core.Domain.Mailing;
+using CursoAspNet.Core.Infrastructure.Mailing;
 
-namespace web.Controllers
+namespace CursoAspNet.Api.Controllers
 {
     [Route("opportunity")]
     public class OpportunityController : Controller
@@ -18,7 +18,7 @@ namespace web.Controllers
         {
 
             this.context = context;
-            //this.mailService = mailService;
+            this.mailService = mailService;
         }
 
         [HttpGet]

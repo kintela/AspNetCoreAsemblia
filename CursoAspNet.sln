@@ -2,9 +2,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "web", "web.csproj", "{B9E6A3B3-2617-4142-8561-03F340A9D6DD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "api", "api\api.csproj", "{B9E6A3B3-2617-4142-8561-03F340A9D6DD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "..\Core\Core.csproj", "{66437875-658E-42C0-9931-5322A7A64BA3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "core", "core\core.csproj", "{66437875-658E-42C0-9931-5322A7A64BA3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
