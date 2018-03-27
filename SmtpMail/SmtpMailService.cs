@@ -1,7 +1,7 @@
 ﻿using CursoAspNet.Core.Domain.Mailing;
 using System.Net.Mail;
 
-namespace SmtpMail
+namespace CursoAspNet.SmtpMail
 {
     public class SmtpMailService:IMailService
     {

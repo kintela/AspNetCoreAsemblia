@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using CursoAspNet.Core.Domain.Infrastructure;
 using Microsoft.EntityFrameworkCore;
-using CursoAspNet.Core.Infrastructure.Mailing;
 
 namespace CursoAspNet.Core.Domain.OpportunityManagement
 {

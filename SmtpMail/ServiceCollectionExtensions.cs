@@ -1,5 +1,5 @@
 ﻿using CursoAspNet.Core.Domain.Mailing;
-using SmtpMail;
+using CursoAspNet.SmtpMail;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -14,5 +14,6 @@ namespace Microsoft.Extensions.DependencyInjection
 
             return services;
         }
+
     }
 }

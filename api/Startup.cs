@@ -1,14 +1,7 @@
-﻿using CursoAspNet.Core.Domain.Mailing;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
-using CursoAspNet.Core.Domain.Infrastructure;
-using CursoAspNet.Core.Infrastructure.Mailing;
-using CursoAspNet.Core.Actions.OpportunityManagement;
-using MediatR;
-using CursoAspNet.Core;
-using CursoAspNet.Core.Infrastructure.Actions;
 
 namespace CursoAspNet.Api
 {

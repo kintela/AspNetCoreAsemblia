@@ -1,10 +1,4 @@
-﻿using System.Linq;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using CursoAspNet.Core.Domain.OpportunityManagement;
-using CursoAspNet.Core.Domain.Infrastructure;
-using CursoAspNet.Core.Domain.Mailing;
-using CursoAspNet.Core.Infrastructure.Mailing;
+﻿using Microsoft.AspNetCore.Mvc;
 using CursoAspNet.Core.Actions.OpportunityManagement;
 using MediatR;
 using System.Threading.Tasks;
@@ -15,6 +9,13 @@ namespace CursoAspNet.Api.Controllers
     public class OpportunityController : Controller
     {
         private readonly IMediator mediator;
+
+        private readonly ViewById viewById;
+
+        public OpportunityController(ViewById viewById)
+        {
+            this.viewById = viewById;
+        }
         public OpportunityController(IMediator mediator)
         {
             this.mediator = mediator;
@@ -43,20 +44,20 @@ namespace CursoAspNet.Api.Controllers
             return Ok(getAllResponse);
         }
 
-        //[HttpGet]
-        //[Route("{id}")]
-        //public IActionResult Get(int id)
-        //{
+        [HttpGet]
+        [Route("{id}")]
+        public IActionResult Get(int id)
+        {
 
-        //    var opportunity = viewById.Run(id);
+            var opportunity = viewById.Run(id);
 
-        //    if (opportunity==null)
-        //    {
-        //        return NoContent();
-        //    }
+            if (opportunity == null)
+            {
+                return NoContent();
+            }
 
-        //    return Ok(opportunity);
-        //}
+            return Ok(opportunity);
+        }
 
 
 
